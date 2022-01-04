@@ -43,6 +43,7 @@
         $bulan =  $nama_bulan[(int) substr($tgl, 5 , 2)];
         $tanggal = substr($tgl, 8 , 2);
         $text = '';
+        $hari = '';
 
         if($tampil_hari){
             $urutan_hari = date('w',mktime(0,0,0,substr($tgl, 5, 2), $tanggal, $tahun));
