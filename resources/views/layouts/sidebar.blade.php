@@ -68,59 +68,51 @@
                 <li class="nav-header">TRANSAKSI</li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-hand-holding-usd"></i>
+                        <i class="nav-icon fas fa-hand-holding-usd"></i>
                         <p>Pengeluaran</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>Pembelian</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-money-bill-alt"></i>
+                        <i class="nav-icon fas fa-money-bill-alt"></i>
                         <p>Penjualan</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-tags"></i>
+                        <i class="nav-icon fas fa-tags"></i>
                         <p>Trasaksi Lama</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-tag"></i>
+                        <i class="nav-icon fas fa-tag"></i>
                         <p>Trasaksi Baru</p>
                     </a>
                 </li>
                 <li class="nav-header">REPORT</li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="far fa-flag"></i>
+                        <i class="nav-icon fas fa-flag"></i>
                         <p>Laporan</p>
                     </a>
                 </li>
                 <li class="nav-header">SYSTEM</li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-user"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>User</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <i class="fas fa-cogs"></i>
+                        <i class="nav-icon fas fa-cogs"></i>
                         <p>Pengaturan</p>
                     </a>
                 </li>
