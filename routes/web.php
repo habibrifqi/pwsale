@@ -23,5 +23,5 @@ Route::get('/', fn()
 );
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('home');
 })->name('dashboard');
