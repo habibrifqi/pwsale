@@ -21,7 +21,7 @@
                                 class="fa fa-plus-circle"></i>
                             Tambah</button>
                     </div>
-                    <div class="box-body table-responsive">
+                    <div class="box-body table-responsive p-3">
                         <table class="table table-stiped table-bordered">
                             <thead>
                                 <th widht="5%">no</th>

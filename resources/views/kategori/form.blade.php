@@ -1,4 +1,4 @@
-{{-- <div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form action="" method="post" class="form-horizontal">
             @csrf
@@ -14,12 +14,17 @@
                     <div class="card-body p-1">
                         <div class="form-group">
                             <label for="nama_kategori">Nama Ketegori</label>
-                            <input type="text" class="form-control" id="nama_kategori" placeholder="nama_kategori"
-                                name="nama_kategori">
-                        </div> --}}
+                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror"
+                                id="nama_kategori" placeholder="nama_kategori" name="nama_kategori" autofocus required>
+                        </div>
+                        @error('nama_kategori')
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
 
 
-{{-- @error('nama_kategori')
+                        {{-- @error('nama_kategori')
                             <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -27,7 +32,7 @@
                         @enderror --}}
 
 
-{{-- </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-flat btn-secondary" data-dismiss="modal">batal</button>
@@ -36,9 +41,9 @@
             </div>
         </form>
     </div>
-</div> --}}
+</div>
 
-<div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form">
+{{-- <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form">
     <div class="modal-dialog modal-lg" role="document">
         <form action="" method="post" class="form-horizontal">
             @csrf
@@ -68,4 +73,4 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
