@@ -17,14 +17,20 @@ class BuatProdukTable extends Migration
         Schema::create('produk', function (Blueprint $table) {
             //
             $table->id('id_produk');
-            $table->integer('id_kategori');
+            $table->foreignId('id_kategori')->references('id_kategori')->on('kategori')->onUpdate('restrict')->onDelete('restrict');
             $table->integer('nama_produk')->unique();
             $table->string('merk')->nullable();
             $table->integer('harga_beli');
             $table->tinyInteger('diskon')->default(0);
             $table->integer('harga_jual');
             $table->integer('stock');
-            $table->timestamps();          
+            $table->timestamps(); 
+            
+            //  $table->foreign('id_kategori')
+            // ->references('id_kategori')
+            // ->on('kategori')
+            // ->onUpdate('restrict')
+            // ->onDelete('restrict');
         });
     }
 

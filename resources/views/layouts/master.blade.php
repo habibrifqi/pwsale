@@ -93,7 +93,7 @@
 
     <!-- jQuery -->
     <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
-    @stack('scripts')
+
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 
 
@@ -150,7 +150,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script> --}}
     <script src="{{ asset('js/validator.min.js') }}"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script> --}}
-
+    @stack('scripts');
 </body>
 
 </html>
