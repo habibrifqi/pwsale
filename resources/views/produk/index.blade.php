@@ -26,10 +26,13 @@
                             <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')"
                                 class="btn btn-danger xs btn-flat"><i class="fa fa-trash"></i>
                                 hapus</button>
+                            <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')"
+                                class="btn btn-primary xs btn-flat"><i class="fa fa-barcode"></i>
+                                cetak barcode</button>
                         </div>
                     </div>
                     <div class="box-body table-responsive p-3">
-                        <form class="form-produk" action="">
+                        <form class="form-produk" method="post" action="">
                             @csrf
                             <table class="table table-stiped table-bordered">
                                 <thead>
@@ -61,6 +64,9 @@
             <!-- /.col -->
         </div>
     </div><!-- /.container-fluid -->
+    <div>
+        <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG('45435', 'C39+') }}" alt="barcode" />
+    </div>
 @endsection
 @includeIf('produk.form')
 
@@ -201,6 +207,24 @@
             } else {
                 alert('pilih data yg akan di hapus sayang');
                 return;
+            }
+        }
+
+        function cetakBarcode(url) {
+            if ($('input:checked').length < 1) {
+                console.log('1');
+                alert('pilih data yg akan di cetak sayang');
+                return;
+            } else if ($('input:checked').length < 3) {
+                console.log('3');
+                alert('pilih data minimal 3 sayang');
+                return;
+            } else {
+                console.log('4');
+                $('.form-produk')
+                    .attr('action', url)
+                    .attr('target', '_black')
+                    .submit();
             }
         }
     </script>
