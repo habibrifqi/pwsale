@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\Produk;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PDF;
 
 class ProdukController extends Controller
@@ -47,7 +46,7 @@ class ProdukController extends Controller
         ->addColumn('aksi', function($produk){
             return '
             <div class="btn-group">
-            <button onclick=editForm(`'.route('produk.update', $produk->id_produk).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-edit"></i></button>
+            <button type="button" onclick=editForm(`'.route('produk.update', $produk->id_produk).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-edit"></i></button>
             <button onclick=deleteData(`'.route('produk.destroy', $produk->id_produk).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-trash"></i></button>
             <div>
         ';
@@ -158,7 +157,6 @@ class ProdukController extends Controller
             $produk = Produk::find($id);
             $dataproduk[] = $produk;
         }
-
         $pdf = PDF::loadView('produk.barcode', compact('dataproduk'));
         $pdf->setPaper('a4','potrait');
         return $pdf->stream('produk.pdf');

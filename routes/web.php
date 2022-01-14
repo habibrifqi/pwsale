@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,9 @@ Route::group(['middleware' =>'auth'], function (){
     Route::post('/produk/cetak_barcode' , [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
     Route::resource('/produk' , ProdukController::class);
 
+    Route::get('/member/data' , [MemberController::class, 'data'])->name('member.data');
+    Route::resource('/member' , MemberController::class);
+    Route::post('/member/cetak_member' , [MemberController::class, 'cetakMember'])->name('member.cetak_member');
+
+    
 });
