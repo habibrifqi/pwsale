@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,5 +43,7 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('/member' , MemberController::class);
     Route::post('/member/cetak_member' , [MemberController::class, 'cetakMember'])->name('member.cetak_member');
 
+    Route::get('/supplier/data' , [SupplierController::class, 'data'])->name('supplier.data');
+    Route::resource('/supplier' , SupplierController::class);
     
 });

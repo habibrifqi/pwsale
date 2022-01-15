@@ -79,7 +79,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="{{ route('supplier.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-shipping-fast"></i>
                         <p>Supplier</p>
                     </a>
