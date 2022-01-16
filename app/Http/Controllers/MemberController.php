@@ -38,8 +38,8 @@ class MemberController extends Controller
         ->addColumn('aksi', function($member){
             return '
             <div class="btn-group">
-            <button onclick=editForm(`'.route('member.update', $member->id_member).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-edit"></i></button>
-            <button onclick=deleteData(`'.route('member.destroy', $member->id_member).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-trash"></i></button>
+            <button type="button" onclick=editForm(`'.route('member.update', $member->id_member).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-edit"></i></button>
+            <button type="button" onclick=deleteData(`'.route('member.destroy', $member->id_member).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-trash"></i></button>
             <div>
         ';
         })
@@ -66,8 +66,8 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         //
-        $member = Member::latest()->first();
-        $kode_member = (int)$member->kode_member+1 ?? 1;
+        $member = Member::latest()->first() ?? new Member();
+        $kode_member = (int)$member->kode_member+1;
 
         $member = New Member();
         $member->kode_member = tambah_nol_didepan($kode_member, 5);

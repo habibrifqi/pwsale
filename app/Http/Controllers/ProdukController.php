@@ -47,7 +47,7 @@ class ProdukController extends Controller
             return '
             <div class="btn-group">
             <button type="button" onclick=editForm(`'.route('produk.update', $produk->id_produk).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-edit"></i></button>
-            <button onclick=deleteData(`'.route('produk.destroy', $produk->id_produk).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-trash"></i></button>
+            <button type="button" onclick=deleteData(`'.route('produk.destroy', $produk->id_produk).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-trash"></i></button>
             <div>
         ';
         })
@@ -73,8 +73,9 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $produk = Produk::latest()->first();
+        // ?? berarti 'ketika datanya null'
+
+        $produk = Produk::latest()->first() ?? new Produk();
         $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$produk->id_produk+1, 6);
 
         $produk = Produk::create($request->all());
