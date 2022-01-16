@@ -90,7 +90,7 @@
                 </li>
                 <li class="nav-header">TRANSAKSI</li>
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="{{ route('pengeluaran.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-hand-holding-usd"></i>
                         <p>Pengeluaran</p>
                     </a>

@@ -35,10 +35,7 @@ class SupplierController extends Controller
     {
         
         $supplier = Supplier::create($request->all());
-
-
         return response()->json('data berhasil di simpan', 200);
-        // return $vals;
     }
 
     public function show($id)
