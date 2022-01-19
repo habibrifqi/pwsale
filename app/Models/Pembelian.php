@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Supplier;
 
 class Pembelian extends Model
 {
@@ -14,4 +15,9 @@ class Pembelian extends Model
     protected $primaryKey = "id_pembelian";
 
     protected $guarded = [];
+
+    public function supplier()
+    {
+        return $this->hasOne(Supplier::class,'id_supplier','id_supplier');
+    }
 }

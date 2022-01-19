@@ -37,6 +37,7 @@
     {{-- toast --}}
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/toastr/toastr.min.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -156,7 +157,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script> --}}
     <script src="{{ asset('js/validator.min.js') }}"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script> --}}
-    @stack('scripts');
+    @stack('scripts')
 </body>
 
 </html>

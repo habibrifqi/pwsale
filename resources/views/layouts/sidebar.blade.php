@@ -96,7 +96,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="{{ route('pembelian.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>Pembelian</p>
                     </a>

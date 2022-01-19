@@ -29,7 +29,7 @@ class PengeluaranController extends Controller
             return "Rp. ".format_uang($pengeluaran->nominal);
         })
         ->addColumn('created_at',function($pengeluaran){
-            return tanggal_indonesia($pengeluaran->created_at);
+            return tanggal_indonesia($pengeluaran->created_at, false);
         })
         ->addColumn('aksi', function($pengeluaran){
             return '
