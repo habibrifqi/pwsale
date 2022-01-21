@@ -82,7 +82,7 @@
                         <b>asdas</b><b>asdas</b>
                         <br>
                         <b>asdas</b><b>asdas</b> --}}
-                        <dl class="row pb-0 mb-0">
+                        {{-- <dl class="row pb-0 mb-0">
                             <dt class="col-sm-1">Supplier</dt>
                             <dt class="col-sm-0.1">:</dt>
                             <dd class="col-sm-10">{{ $supplier->nama }}</dd>
@@ -95,9 +95,8 @@
                             <dt class="col-sm-0.1 ss">:</dt>
                             <dd class="col-sm-10 ss">{{ $supplier->alamat }}</dd>
 
-                        </dl>
-
-                        {{-- <table>
+                        </dl> --}}
+                        <table>
                             <tr>
                                 <td>Supplier</td>
                                 <td>{{ $supplier->nama }}</td>
@@ -112,27 +111,24 @@
                             </tr>
 
 
-                        </table> --}}
+                        </table>
                     </div>
-                    {{-- <div class="card-header">
-                        <button onclick="addForm()" class="btn btn-success xs btn-flat"><i class="fa fa-plus-circle"></i>
-                            Transaksi Baru</button>
-                    </div> --}}
+
                     <div class="box-body table-responsive pb-3 pr-3 pl-3 pt-1">
-                        <div class="form-group mb-0 pl-2">
+                        <div class="form-group mb-0">
                             <form action="" class="form-produk ">
                                 <div style="" class="row d-flex align-items-center">
-                                    <div class="col-sm-1.5 kode-box-produk">
+                                    <div class="col-sm-12 col-lg-1.5 kode-box-produk">
                                         <label for="kode_produk">Kode Produk :</label>
                                     </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12 col-lg-10">
                                         <div class="input-group mb-3">
                                             <!-- /btn-group -->
 
                                             @csrf
                                             {{-- @method('POST') --}}
-                                            <input type="text" name="id_produk" id="id_produk">
-                                            <input type="text" name="id_pembelian" id="id_pembelian"
+                                            <input type="hidden" name="id_produk" id="id_produk">
+                                            <input type="hidden" name="id_pembelian" id="id_pembelian"
                                                 value="{{ $id_pembelian }}">
                                             <input type="text" class="form-control" name="kode_produk" id="kode_produk"
                                                 placeholder="Produk">
@@ -153,7 +149,7 @@
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Harga</th>
-                                <th width="10%">jumlah</th>
+                                <th min-width="100px" width="15%">jumlah</th>
                                 <th>Sub total</th>
                                 <th widht="15%"> <i class="fa fa-cog"></i></th>
                             </thead>
