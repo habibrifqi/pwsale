@@ -183,7 +183,8 @@
                                 <div class="form-group row">
                                     <label for="diskon" class="col-lg-3 control-label">Diskon</label>
                                     <div class="col-lg-9">
-                                        <input type="number" name="diskon" id="diskon" value="0" class="form-control">
+                                        <input type="number" name="diskon" id="diskon" value="{{ $diskon }}"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -68,7 +68,7 @@
                     @foreach ($data as $item)
                         <td class="text-center" width=50%>
                             <div class="box">
-                                <img src="{{ asset('image/member.png') }}" alt="card" width="100%">
+                                <img src="{{ asset($setting->path_kartu_member) }}" alt="card" width="100%">
                                 <div class="item">
                                     <div class="barcode text-left">
                                         <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG("$item->kode_member", 'QRCODE') }}"

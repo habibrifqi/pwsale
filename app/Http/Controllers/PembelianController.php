@@ -41,6 +41,9 @@ class PembelianController extends Controller
         ->addColumn('tanggal', function($pembelian){
             return tanggal_indonesia($pembelian->created_at);
         })
+        ->addColumn('diskon', function ($pembelian) {
+            return $pembelian->diskon.' %';
+        })
         ->addColumn('supplier', function($pembelian){
             return $pembelian->supplier->nama;
         })

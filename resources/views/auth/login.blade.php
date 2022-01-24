@@ -23,7 +23,7 @@
                         <input type="email" name="email"
                             class="form-control
                           @error('email') is-invalid @enderror "
-                            placeholder="Email" required value="{{ old('email') }}">
+                            placeholder="Email" autofocus required value="{{ old('email') }}">
 
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -41,7 +41,7 @@
                     <div class="input-group mb-3">
                         <input type="password" name="password"
                             class="form-control  
-                        @error('password') is-invalid @enderror"
+                        @error('password') is-invalid @enderror" autofocus
                             placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
