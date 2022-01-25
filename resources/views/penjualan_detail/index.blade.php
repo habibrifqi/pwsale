@@ -1,12 +1,12 @@
 @extends('layouts/master')
 
 @section('title')
-    Transaksi Pembelian
+    Transaksi Penjualan
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Transaksi Pembelian</li>
+    <li class="breadcrumb-item active">Transaksi Penjualan</li>
 @endsection
 @push('css')
     <style>
@@ -31,7 +31,7 @@
             padding-right: 1.5em;
         }
 
-        .table_pembelian_detail tbody tr:last-child {
+        .table_penjualan tbody tr:last-child {
             display: none;
         }
 
@@ -76,44 +76,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body pb-0">
-                        {{-- <b>asdas</b><b>asdas</b>
-                        <br>
-                        <b>asdas</b><b>asdas</b>
-                        <br>
-                        <b>asdas</b><b>asdas</b> --}}
-                        {{-- <dl class="row pb-0 mb-0">
-                            <dt class="col-sm-1">Supplier</dt>
-                            <dt class="col-sm-0.1">:</dt>
-                            <dd class="col-sm-10">{{ $supplier->nama }}</dd>
-
-                            <dt class="col-sm-1 ss">telepon</dt>
-                            <dt class="col-sm-0.1 ss">:</dt>
-                            <dd class="col-sm-10 ss">{{ $supplier->telepon }}</dd>
-
-                            <dt class="col-sm-1 ss">Alamat</dt>
-                            <dt class="col-sm-0.1 ss">:</dt>
-                            <dd class="col-sm-10 ss">{{ $supplier->alamat }}</dd>
-
-                        </dl> --}}
-                        <table>
-                            <tr>
-                                <td>Supplier</td>
-                                <td>{{ $supplier->nama }}</td>
-                            </tr>
-                            <tr>
-                                <td>telepon</td>
-                                <td>{{ $supplier->telepon }}</td>
-                            </tr>
-                            <tr>
-                                <td>alamat</td>
-                                <td>{{ $supplier->alamat }}</td>
-                            </tr>
-
-
-                        </table>
-                    </div>
-
                     <div class="box-body table-responsive pb-3 pr-3 pl-3 pt-1">
                         <div class="form-group mb-0">
                             <form action="" class="form-produk ">
@@ -128,8 +90,8 @@
                                             @csrf
                                             {{-- @method('POST') --}}
                                             <input type="hidden" name="id_produk" id="id_produk">
-                                            <input type="hidden" name="id_pembelian" id="id_pembelian"
-                                                value="{{ $id_pembelian }}">
+                                            <input type="hidden" name="id_penjualan" id="id_penjualan"
+                                                value="{{ $id_penjualan }}">
                                             <input type="text" class="form-control" name="kode_produk" id="kode_produk"
                                                 placeholder="Produk">
                                             <div class="input-group-prepend">
@@ -143,13 +105,14 @@
                             </form>
 
                         </div>
-                        <table class="table table_pembelian_detail table-stiped table-bordered">
+                        <table class="table table_penjualan table-stiped table-bordered">
                             <thead>
                                 <th width="5%">no</th>
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Harga</th>
                                 <th min-width="100px" width="15%">jumlah</th>
+                                <th>Diskon</th>
                                 <th>Sub total</th>
                                 <th widht="15%"> <i class="fa fa-cog"></i></th>
                             </thead>
@@ -168,12 +131,13 @@
                             </div>
                         </div>
                         <div class="col-lg-4 pr-4 col-sm-12 des-rp">
-                            <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
+                            <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
                                 @csrf
-                                <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
+                                <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                                 <input type="hidden" name="total" id="total">
                                 <input type="hidden" name="total_item" id="total_item">
                                 <input type="hidden" name="bayar" id="bayar">
+                                <input type="hidden" name="id_member" id="id_member">
                                 <div class="form-group row">
                                     <label for="totalrp" class="col-lg-3 control-label">Total</label>
                                     <div class="col-lg-9">
@@ -181,9 +145,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="kode_member" class="col-lg-3 control-label">Member</label>
+                                    <div class="col-lg-9">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="kode_member">
+                                            <div class="input-group-prepend">
+                                                <button onclick="tampilMember()" type="button" class="btn btn-success"><i
+                                                        class="fa fa-arrow-right"></i></button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="diskon" class="col-lg-3 control-label">Diskon</label>
                                     <div class="col-lg-9">
-                                        <input type="number" name="diskon" id="diskon" value="{{ $diskon }}"
+                                        <input type="number" name="diskon" id="diskon" value="0" readonly
                                             class="form-control">
                                     </div>
                                 </div>
@@ -191,6 +169,18 @@
                                     <label for="bayarrp" class="col-lg-3 control-label">bayar</label>
                                     <div class="col-lg-9">
                                         <input type="text" id="bayarrp" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="diterima" class="col-lg-3 control-label">Diterima</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" id="diterima" class="form-control" value="0" name="diterima">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="kembali" class="col-lg-3 control-label">Kembali</label>
+                                    <div class="col-lg-9">
+                                        <input type="text" id="kembali" name="kembali" class="form-control" readonly>
                                     </div>
                                 </div>
 
@@ -218,20 +208,22 @@
     </div><!-- /.container-fluid -->
     {{-- @dump($supplier); --}}
 @endsection
-@includeIf('pembelian_detail.produk')
+@includeIf('penjualan_detail.produk')
+@includeIf('penjualan_detail.member')
 
 
 @push('scripts')
     <script>
-        let table, table2;
+        let table, table2, table3;
         $(function() {
-            table = $('.table_pembelian_detail').DataTable({
+            $('body').addClass('sidebar-collapse');
+            table = $('.table_penjualan').DataTable({
                     responsive: true,
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     ajax: {
-                        url: '{{ route('pembelian_detail.data', $id_pembelian) }}',
+                        url: '{{ route('transaksi.data', $id_penjualan) }}',
                     },
                     columns: [{
                             data: 'DT_RowIndex',
@@ -245,10 +237,13 @@
                             data: 'nama_produk'
                         },
                         {
-                            data: 'harga_beli'
+                            data: 'harga_jual'
                         },
                         {
                             data: 'jumlah'
+                        },
+                        {
+                            data: 'diskon'
                         },
                         {
                             data: 'subtotal'
@@ -272,6 +267,7 @@
                     loadform($('#diskon').val())
                 })
             table2 = $('.table_produk').DataTable();
+            table3 = $('.table_member').DataTable();
 
             $(document).on('change', '.quantity', function() {
                 let id = $(this).data('id');
@@ -288,7 +284,7 @@
                     return;
                 }
                 console.log(jumlah);
-                $.post(`{{ url('/pembelian_detail') }}/${id}`, {
+                $.post(`{{ url('/transaksi') }}/${id}`, {
                         '_token': $('[name=csrf-token]').attr('content'),
                         '_method': 'put',
                         'jumlah': jumlah
@@ -297,7 +293,7 @@
                         // $(this).on('mouseout', function() {
                         //     table.ajax.reload();
                         // });
-                        table.ajax.reload(() => loadform($('#diskon').val()));
+                        table.ajax.reload();
 
                     })
                     .fail(response => {
@@ -315,9 +311,20 @@
                 loadform($(this).val());
             })
 
+            $('#diterima').on('input', function() {
+                if ($(this).val() == "") {
+                    $(this).val(0).select();
+                }
+                loadform($('#diskon').val(), $(this).val())
+
+            })
+            $('#diterima').slideDown(function() {
+                $(this).select();
+            });
+
             $('.btn-simpan').on('click', function() {
-                $('.form-pembelian').submit();
-                console.log('sadfas');
+                $('.form-penjualan').submit();
+                // console.log('sadfas');
             })
 
         });
@@ -340,7 +347,7 @@
         }
 
         function tambahProduk() {
-            $.post('{{ route('pembelian_detail.store') }}', $('.form-produk').serialize())
+            $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
                 .done((response) => {
                     $('#kode_produk').focus();
                     table.ajax.reload();
@@ -349,6 +356,23 @@
                     alert('tidak dapet menyimpan data blogk');
                     return;
                 });
+        }
+
+        function tampilMember() {
+            $('#modal-member').modal('show');
+        }
+
+        function pilihMember(id, kode) {
+            $('#id_member').val(id);
+            $('#kode_member').val(kode);
+            $('#diskon').val('{{ $diskon }}');
+            loadform($('#diskon').val());
+            $('#diterima').val(0).focus().select();
+            hideMember();
+        }
+
+        function hideMember() {
+            $('#modal-member').modal('hide');
         }
 
         function deleteData(url) {
@@ -367,18 +391,24 @@
             }
         }
 
-        function loadform(diskon = 0) {
+        function loadform(diskon = 0, diterima = 0) {
+            console.log(diterima);
             $('#total').val($('.total').text());
             $('#total_item').val($('.total_item').text());
 
-            $.get(`{{ url('/pembelian_detail/loadform') }}/${diskon}/${$('.total').text()}`)
+            $.get(`{{ url('/transaksi/loadform') }}/${diskon}/${$('.total').text()}/${diterima}`)
                 .done(response => {
                     $('#totalrp').val('Rp. ' + response.totalrp);
                     $('#bayar').val(response.bayar);
-                    // console.log(response.bayar);
-                    $('#bayarrp').val('Rp. ' + response.totalrp);
-                    $('.tampil-bayar').text('Rp. ' + response.bayarrp);
-                    $('.tampil-terbilang').text('Rp. ' + response.terbilang);
+                    $('#bayarrp').val('Rp. ' + response.bayarrp);
+                    $('.tampil-bayar').text('Bayar :Rp. ' + response.bayarrp);
+                    $('.tampil-terbilang').text(response.terbilang);
+
+                    $('#kembali').val('Rp.' + response.kembalirp);
+                    if ($('#diterima').val() != 0) {
+                        $('.tampil-bayar').text('Kembali :Rp. ' + response.kembalirp);
+                        $('.tampil-terbilang').text(response.kembali_terbilang);
+                    }
                 })
                 .fail(errors => {
                     alert('data salah');

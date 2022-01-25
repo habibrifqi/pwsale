@@ -108,13 +108,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="{{ route('transaksi.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
                         <p>Trasaksi Lama</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="{{ route('transaksi.baru') }}" class="nav-link">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>Trasaksi Baru</p>
                     </a>
