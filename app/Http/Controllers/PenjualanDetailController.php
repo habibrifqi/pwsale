@@ -26,7 +26,8 @@ class PenjualanDetailController extends Controller
         if (auth()->user()->level == 1) {
             return Redirect()->route('transaksi.baru');
         }else{
-            return redirect()->route('/');
+            // return redirect()->route('penjualan');
+            return view('penjualan.index');
         }
     }
 

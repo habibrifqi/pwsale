@@ -74,6 +74,9 @@ Route::group(['middleware' =>'auth'], function (){
 
     route::get('transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
     route::post('transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
+    route::get('transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
+    route::get('transaksi/nota-kecil', [PenjualanController::class, 'notaKecil'])->name('transaksi.nota_kecil');
+    route::get('transaksi/nota-besar', [PenjualanController::class, 'notaBesar'])->name('transaksi.nota_besar');
 
     route::get('transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
     route::get('transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadform'])->name('transaksi.loadform');

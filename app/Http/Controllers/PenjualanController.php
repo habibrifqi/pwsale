@@ -5,13 +5,96 @@ namespace App\Http\Controllers;
 use App\Models\Penjualan;
 use App\Models\PenjualanDetail;
 use App\Models\Produk;
+use App\Models\Setting;
+// use Barryvdh\DomPDF\PDF;
+use PDF;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
     
     public function index(){
-        return "oke tod";
+       
+
+
+        return view('penjualan.index');
+    }
+    public function data()
+    {
+        $penjualan = Penjualan::with('member','user')->orderBy('id_penjualan','desc')->get();
+        //  $penjualan = Penjualan::orderBy('id_penjualan','desc')->get();
+        // return $penjualan;
+        return datatables()
+        ->of($penjualan)
+        ->addIndexColumn()
+        ->addColumn('total_item', function ($penjualan) {
+            return format_uang($penjualan->total_item);
+        })
+        ->addColumn('total_harga', function ($penjualan) {
+            return 'Rp. '. format_uang($penjualan->total_harga);
+        })
+        ->addColumn('bayar', function ($penjualan) {
+            return 'Rp. '. format_uang($penjualan->bayar);
+        })
+        ->addColumn('tanggal', function($penjualan){
+            return tanggal_indonesia($penjualan->created_at);
+        })
+        ->addColumn('diskon', function ($penjualan) {
+            return $penjualan->diskon.' %';
+        })
+        ->addColumn('kode_member', function($penjualan){
+           
+            if (empty( $penjualan->member->kode_member)) {
+                return 'No member';
+            }else{
+                 return '<span class="badge bg-success center">'.$penjualan->member->kode_member.'</span>';
+            }
+        })
+        ->addColumn('kasir', function($penjualan){
+           
+            // return $penjualan->user['name'] ?? "";
+            return $penjualan->user->name ?? "";
+            // return '<span class="badge bg-success center">'.$penjualan->member['kode_member'].'</span>';
+        })
+        ->addColumn('aksi', function($penjualan){
+            return '
+            <div class="btn-group">
+            <button onclick=showDetail(`'.route('penjualan.show', $penjualan->id_penjualan).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-eye"></i></button>
+            <button onclick=deleteData(`'.route('penjualan.destroy', $penjualan->id_penjualan).'`) class="btn btn-xs btn-info btb-flat"><i class="fa fa-trash"></i></button>
+            
+            <div>
+        ';
+        })
+        ->rawColumns(['aksi','kode_member'])
+        ->make(true);
+    }
+
+    public function show($id)
+    {
+        $detail = PenjualanDetail::with('produk')->where('id_penjualan', $id)->get();
+        // return $detail;
+        
+        
+        return datatables()
+        ->of($detail)
+        ->addIndexColumn()
+        ->addColumn('kode_produk', function ($detail) {
+            return '<span class="badge bg-success center">'.$detail->produk['kode_produk'].'</span>';
+        })
+        ->addColumn('nama_produk', function ($detail) {
+            return $detail->produk->nama_produk;
+        })
+        ->addColumn('harga_jual', function ($detail) {
+            return 'Rp. '.format_uang($detail->harga_jual);
+        })
+        ->addColumn('jumlah', function ($detail) {
+            return format_uang($detail->jumlah);
+        })
+        ->addColumn('subtotal', function ($detail) {
+            return 'Rp. '.format_uang($detail->subtotal);
+        })
+        ->rawColumns(['kode_produk'])
+        ->make(true);
     }
 
     public function create()
@@ -52,7 +135,56 @@ class PenjualanController extends Controller
             $produk->update();
         }
 
-        return redirect()->route('penjualan.index');
+        return redirect()->route('transaksi.selesai');
 
+    }
+    public function destroy($id){
+        $penjualan = Penjualan::find($id);
+        $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
+        // return $detail;
+        foreach ($detail as $item ) {
+            $produk = Produk::find($item->id_produk);
+            if ($produk) {
+                $produk->stock += $item->jumlah;
+                $produk->update();
+            }
+            $item->delete();
+        }
+        $penjualan->delete();
+
+        return response(null,204);
+    }
+
+    public function selesai()
+    {
+        $setting = Setting::first();
+        return view('penjualan.selesai',compact('setting'));
+    }
+    public function notaKecil(){
+        $setting = Setting::first();
+        $penjualan = Penjualan::find(session('id_penjualan'));
+        if (! $penjualan) {
+        abort(404);
+        }
+        $detail = PenjualanDetail::with('produk')
+        ->where('id_penjualan', session('id_penjualan'))->get();
+        
+        return view('penjualan.nota_kecil',compact('setting','penjualan','detail'));
+
+    }
+    public function notaBesar(){
+        $setting = Setting::first();
+        $penjualan = Penjualan::find(session('id_penjualan'));
+        if (! $penjualan) {
+        abort(404);
+        }
+        $detail = PenjualanDetail::with('produk')
+        ->where('id_penjualan', session('id_penjualan'))->get();
+
+        $pdf = PDF::loadView('penjualan.nota_besar',compact('setting','penjualan','detail'));
+        $pdf->setPaper(0,0,609,440, 'potrait');
+
+        return $pdf->stream();
+        
     }
 }
